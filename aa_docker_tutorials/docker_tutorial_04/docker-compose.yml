@@ -1,0 +1,37 @@
+version: "3.8"
+
+services:
+  mlflow:
+    build: ./app
+    container_name: iris_mlflow
+    working_dir: /app
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./app:/app
+    command: >
+      mlflow server --backend-store-uri sqlite:///mlflow_db/mlflow.db --default-artifact-root /app/mlartifacts --host 0.0.0.0 --port 5000
+
+  train:
+    build: ./app
+    container_name: iris_trainer
+    depends_on:
+      - mlflow
+    volumes:
+      - ./app:/app
+    command: >
+      python train.py
+
+  streamlit:
+    build: ./app
+    container_name: iris_streamlit
+    depends_on:
+      - train
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./app:/app
+    environment:
+      - MLFLOW_TRACKING_URI=sqlite:///mlflow_db/mlflow.db
+    command: >
+      streamlit run app.py --server.address=0.0.0.0
