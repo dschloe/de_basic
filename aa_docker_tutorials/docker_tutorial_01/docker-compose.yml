@@ -1,0 +1,12 @@
+version: "3.8"
+services:
+  streamlit: 
+    build: .
+    ports:
+      - "8501:8501"
+    volumes: 
+      - .:/app
+    restart: always 
+
+docker compose up
+docker compose down <-- 컨테이너(복수형) 종료
