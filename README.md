@@ -1,9 +1,10 @@
-# 확인 
-sudo apt update
-sudo apt install mysql-server
-sudo ufw all mysql
-sudo systemctl start mysql
-sudo systemctl enable mysql
+# 실행방법
+- run_all.sh 파일 권한 부여 
+```
+sudo chmod +x run_all.sh
+```
 
-위에까지 실행 후, 기존 터미널 삭제 후 다시 터미널 생성
-sudo systemctl status mysql
+- 실행
+```
+./run_all.sh
+```
