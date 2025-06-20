@@ -6,6 +6,7 @@ import requests  # HTTP 요청을 위한 라이브러리
 from bs4 import BeautifulSoup  # HTML 파싱을 위한 라이브러리
 import pandas as pd  # 데이터프레임 및 CSV 저장을 위한 라이브러리
 import os  # 파일 및 디렉토리 경로 조작을 위한 표준 라이브러리
+import pendulum
 
 def crawl_to_csv(**context):
     """
@@ -36,7 +37,17 @@ def crawl_to_csv(**context):
     execution_time = context['ts_nodash']
     
     # 실행 시각을 파일명에 쓸 수 있도록 포맷 변경 (예: 20250619_123000)
-    formatted_time = datetime.strptime(execution_time, "%Y%m%dT%H%M%S").strftime("%Y%m%d_%H%M%S")
+    # formatted_time = datetime.strptime(execution_time, "%Y%m%dT%H%M%S").strftime("%Y%m%d_%H%M%S")
+    # 1. 문자열 → datetime 객체 (UTC)
+    utc_time = datetime.strptime(execution_time, "%Y%m%dT%H%M%S").replace(tzinfo=pendulum.UTC)
+
+    # 2. UTC → KST 변환
+    kst = pendulum.timezone("Asia/Seoul")
+    kst_time = utc_time.astimezone(kst)
+
+    # 3. 파일명용 포맷팅
+    formatted_time = kst_time.strftime("%Y%m%d_%H%M%S")
+
 
     # 여기 부분이 핵심임!!!
     # 결과 파일을 저장할 output 디렉토리 경로 생성 (AIRFLOW_HOME/output)
