@@ -1,0 +1,7 @@
+pandas
+numpy
+seaborn
+matplotlib
+requests
+psycopg2-binary
+apache-airflow-providers-postgres==5.7.1

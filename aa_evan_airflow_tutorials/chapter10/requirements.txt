@@ -1,0 +1,12 @@
+pandas
+numpy
+seaborn
+matplotlib
+requests
+psycopg2-binary
+streamlit
+plotly
+pytz
+mysql-connector-python
+streamlit_autorefresh
+apache-airflow-providers-postgres==5.7.1
