@@ -1,7 +1,7 @@
 #!/bin/bash 
 
 # 가상환경 활성화
-# source .venv/bin/activate
+source .venv/bin/activate
 
 # Airflow 홈 설정 (프로젝트 디렉터리 최상위에서 출발)
 export AIRFLOW_HOME=$(pwd)/airflow

@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  airflow:
+    build: .
+    container_name: airflow_local
+    environment:
+      - AIRFLOW_HOME=/airflow  # (run_airflow.sh: export AIRFLOW_HOME)
+      - AIRFLOW__CORE__LOAD_EXAMPLES=False  # (run_airflow.sh: export AIRFLOW__CORE__LOAD_EXAMPLES)
+      - AIRFLOW__WEBSERVER__WEB_SERVER_MASTER_TIMEOUT=600  # (run_airflow.sh: export AIRFLOW__WEBSERVER__WEB_SERVER_MASTER_TIMEOUT)
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./airflow:/airflow  # (run_airflow.sh: output/logs/dags 디렉토리)
+      - ./dags:/airflow/dags  # (run_airflow.sh: dags 복사)
+      - ./requirements.txt:/requirements.txt
+      - ./install_airflow.sh:/install_airflow.sh
+    restart: unless-stopped
