@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 
 # 페이지 설정
-st.set_page_config(page_title="팀 선정 시스템", layout="wide")
+st.set_page_config(page_title="팀 선정 시스템!!", layout="wide")
 st.title("🏆 팀 선정 시스템")
 
 # teams.csv 파일 읽기
