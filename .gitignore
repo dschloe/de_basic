@@ -194,3 +194,4 @@ cython_debug/
 .cursorindexingignore
 
 gcp_tutorial/creditcard.csv
+gcp_tutorial/lgu6h-project-09e19171e4dd.json
